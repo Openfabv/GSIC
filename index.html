@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gati Silicon Integrated Chips — Fabless RISC-V Design</title>
+<meta name="description" content="Gati Silicon Integrated Chips (GSIC) — fabless semiconductor design studio. RISC-V IP, ASIC/FPGA prototyping, and custom silicon from RTL to tapeout.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230A0E14%22/><path d=%22M6 16h5l2-6 4 12 2-6h7%22 stroke=%22%23C97C4B%22 stroke-width=%222.2%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a href="#top" class="brand">
+    <svg class="brand-mark" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+      <rect width="32" height="32" rx="6" fill="var(--void)"/>
+      <path d="M6 16h5l2-6 4 12 2-6h7" stroke="var(--copper)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>GSIC</span>
+  </a>
+  <nav class="topnav" aria-label="Primary">
+    <a href="#process">Process</a>
+    <a href="#products">Products</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#open-source">Open Source</a>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </nav>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Fabless semiconductor design studio</p>
+      <h1>Gati Silicon<br>Integrated Chips</h1>
+      <p class="hero-sub">
+        <span class="devnote">Gati</span> — Velocity at which a signal travels. We design that
+        journey: from RTL, through verification and place-and-route, onto FPGA, and out to silicon.
+      </p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary">See what we're building</a>
+        <a href="https://github.com/" class="btn btn-ghost" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <svg id="floorplan" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+        <!-- grid -->
+        <g class="fp-grid"></g>
+
+        <!-- traces (drawn by JS-populated paths, defined here for layout) -->
+        <g class="fp-traces">
+          <path id="trace-1" class="trace" d="M120 90 H280 V190" />
+          <path id="trace-2" class="trace" d="M440 90 H360 V190" />
+          <path id="trace-3" class="trace" d="M280 230 V300 H180" />
+          <path id="trace-4" class="trace" d="M360 230 V300 H420" />
+          <path id="trace-5" class="trace" d="M180 340 H420" />
+        </g>
+
+        <!-- blocks -->
+        <g class="fp-block" data-label="RTL">
+          <rect x="60" y="50" width="120" height="60" rx="4"/>
+          <text x="120" y="85">RTL</text>
+        </g>
+        <g class="fp-block" data-label="VERIF">
+          <rect x="380" y="50" width="120" height="60" rx="4"/>
+          <text x="440" y="85">VERIF</text>
+        </g>
+        <g class="fp-block core" data-label="RISC-V CORE">
+          <rect x="220" y="190" width="180" height="80" rx="4"/>
+          <text x="310" y="222">RISC-V</text>
+          <text x="310" y="248" class="sub">CORE</text>
+        </g>
+        <g class="fp-block" data-label="PD/STA">
+          <rect x="120" y="300" width="120" height="60" rx="4"/>
+          <text x="180" y="335">PD · STA</text>
+        </g>
+        <g class="fp-block" data-label="FPGA">
+          <rect x="360" y="300" width="120" height="60" rx="4"/>
+          <text x="420" y="335">FPGA</text>
+        </g>
+
+        <!-- pulses travel along the traces via JS/CSS -->
+        <circle class="pulse" r="4" />
+        <circle class="pulse" r="4" style="animation-delay:.9s" />
+        <circle class="pulse" r="4" style="animation-delay:1.8s" />
+      </svg>
+      <p class="visual-caption">signal propagation, RTL → silicon</p>
+    </div>
+  </section>
+
+  <!-- SPEC STRIP -->
+  <section class="specstrip" aria-label="Current status">
+    <div class="spec"><span class="k">FLAGSHIP IP</span><span class="v">GSIC-R1 · RV32IMC</span></div>
+    <div class="spec"><span class="k">TARGET NODE</span><span class="v">Sky130 / GF180</span></div>
+    <div class="spec"><span class="k">STAGE</span><span class="v">Pre-tapeout · FPGA validated</span></div>
+    <div class="spec"><span class="k">TOOLING</span><span class="v">OpenLane · Verilator · cocotb</span></div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <p>
+      We build on open tooling — OpenLane, Sky130, the RISC-V ISA — because a fabless studio
+      shouldn't need a seven-figure EDA seat to prove a core in silicon. GISC starts with
+      verified, licensable RISC-V IP and FPGA prototyping services, and reinvests toward
+      custom accelerators for signal processing and edge inference.
+    </p>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="process">
+    <h2><span class="num">01</span> How a design moves through GISC</h2>
+    <p class="section-sub">A fixed sequence, every time — each stage gates the next.</p>
+    <ol class="process-list">
+      <li>
+        <span class="step">01</span>
+        <div>
+          <h3>RTL Design</h3>
+          <p>Verilog/SystemVerilog architecture and coding — cores, peripherals, custom instruction extensions.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step">02</span>
+        <div>
+          <h3>Verification</h3>
+          <p>Verilator + cocotb testbenches, coverage-driven, checked against riscv-arch-test compliance.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step">03</span>
+        <div>
+          <h3>Synthesis &amp; PPA</h3>
+          <p>Power–performance–area tuning through OpenLane, with static timing analysis for closure.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step">04</span>
+        <div>
+          <h3>FPGA Prototyping</h3>
+          <p>Xilinx-platform bring-up for real hardware validation before committing to silicon.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step">05</span>
+        <div>
+          <h3>Tapeout</h3>
+          <p>Shuttle/MPW runs on Sky130 or GF180 — proof of silicon, not just simulation.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="products">
+    <h2><span class="num">02</span> IP &amp; Products</h2>
+    <p class="section-sub">What's shipping, and what's in motion.</p>
+
+    <div class="card-grid">
+      <article class="card card-flagship">
+        <div class="card-top">
+          <span class="tag">FLAGSHIP</span>
+          <span class="status status-active">FPGA validated</span>
+        </div>
+        <h3>GISC-R1 RISC-V Core</h3>
+        <p>A configurable RV32IMC core built for embedded and defense-grade edge applications, with an optional custom SIMD/DSP extension for signal processing.</p>
+        <dl class="spec-list">
+          <div><dt>ISA</dt><dd>RV32IMC (RV64GC variant planned)</dd></div>
+          <div><dt>Extension</dt><dd>Custom DSP/MAC instruction</dd></div>
+          <div><dt>Target</dt><dd>Sky130 / GF180 shuttle</dd></div>
+        </dl>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <span class="tag">OPEN SOURCE</span>
+          <span class="status status-active">In development</span>
+        </div>
+        <h3>Open RTL Module Library</h3>
+        <p>Reusable, silicon-portable building blocks — primitives, memory, protocol, arithmetic, and DSP modules — verified with a Verilator + cocotb CI pipeline.</p>
+        <dl class="spec-list">
+          <div><dt>Coverage</dt><dd>Sky130 · GF180 · generic ASIC · Xilinx 7-series</dd></div>
+          <div><dt>License</dt><dd>Apache 2.0</dd></div>
+        </dl>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <span class="tag">APPLIED</span>
+          <span class="status status-progress">In progress</span>
+        </div>
+        <h3>Embedded Vision — Rice Sorting System</h3>
+        <p>FPGA-to-FPGA synchronization over an LVDS serial link for a real-time optical sorting pipeline, with full KiCad schematic capture.</p>
+        <dl class="spec-list">
+          <div><dt>Interface</dt><dd>LVDS serial, dual-FPGA sync</dd></div>
+          <div><dt>Deliverable</dt><dd>KiCad PCB schematic</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section id="roadmap" class="roadmap">
+    <h2><span class="num">03</span> Roadmap</h2>
+    <p class="section-sub">Services fund IP. IP funds products. Products fund the harder silicon.</p>
+
+    <div class="timeline">
+      <div class="timeline-line" aria-hidden="true"></div>
+      <div class="phase">
+        <span class="dot"></span>
+        <span class="phase-label">Phase 0</span>
+        <h4>Services &amp; IP</h4>
+        <p>RTL/FPGA design services, open module library, first RISC-V core.</p>
+      </div>
+      <div class="phase">
+        <span class="dot"></span>
+        <span class="phase-label">Phase 1</span>
+        <h4>Small Silicon</h4>
+        <p>Licensable IP cores, shuttle tapeouts on Sky130/GF180, DLI-backed development.</p>
+      </div>
+      <div class="phase">
+        <span class="dot"></span>
+        <span class="phase-label">Phase 2</span>
+        <h4>NPU / TPU-class</h4>
+        <p>Custom accelerators for edge inference and radar/sensor signal processing.</p>
+      </div>
+      <div class="phase">
+        <span class="dot"></span>
+        <span class="phase-label">Phase 3</span>
+        <h4>GPU / Neuromorphic</h4>
+        <p>Advanced compute silicon — a research-driven, long-horizon bet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN SOURCE -->
+  <section id="open-source" class="opensource">
+    <h2><span class="num">04</span> Open Source</h2>
+    <p class="section-sub">GISC builds in the open. Fork it, test it, break it, file an issue.</p>
+    <div class="repo-grid">
+      <a class="repo" href="https://github.com/" target="_blank" rel="noopener">
+        <span class="repo-name">gisc-rtl-library</span>
+        <span class="repo-desc">Reusable RTL modules — primitives, memory, protocol, DSP.</span>
+        <span class="repo-meta">Verilog · Apache 2.0</span>
+      </a>
+      <a class="repo" href="https://github.com/" target="_blank" rel="noopener">
+        <span class="repo-name">gisc-r1-core</span>
+        <span class="repo-desc">RV32IMC RISC-V core with optional DSP extension.</span>
+        <span class="repo-meta">Verilog · cocotb</span>
+      </a>
+      <a class="repo" href="https://github.com/" target="_blank" rel="noopener">
+        <span class="repo-name">gisc-fpga-bringup</span>
+        <span class="repo-desc">FPGA prototyping scripts and constraint files for Xilinx targets.</span>
+        <span class="repo-meta">Tcl · Vivado</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <h2>Building something in silicon?</h2>
+    <p>Whether it's RTL, FPGA prototyping, or a custom RISC-V core — let's talk.</p>
+    <a href="mailto:hello@gatisilicon.com" class="btn btn-primary">hello@gatisilicon.com</a>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <span>© <span id="year"></span> Gati Silicon Integrated Chips</span>
+  <span class="footer-sep">·</span>
+  <span>Bengaluru, India</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
